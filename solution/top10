@@ -1,7 +1,13 @@
-#! /bin/bash
-
-# run this script as "top10 log.txt"
-
-# here comes your solution
-# e.g.
-grep world $1
+#! /bin/bash 
+ 
+names=($(cat log.txt | cut -f12 -d" " |cut -f1 -d"/"| grep -v "-"|grep -v "<a" | sort | uniq -c | sort -n | tail -10 | sort -nr)) 
+sum=0 
+for ((i=1;i<21;i=i+2));do 
+sum=$((${sum}+${names[i-1]})) 
+done 
+#echo ${sum} 
+for ((i=1;i<21;i=i+2));do 
+var="${names[i]:1}" 
+ 
+echo $var-${names[i-1]} - $(($((${names[i-1]}))*100/${sum} ))% 
+done
